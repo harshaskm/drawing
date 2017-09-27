@@ -7,8 +7,8 @@ public class TestDrawing {
 
     @Test
     public void printArrayLength(){
-        String[][] box = DrawOnScreen.createMatrix(20, 4);
-        DrawOnScreen.print2DArray(box,20,4);
+        char[][] box = DrawOnScreen.createMatrix(20, 4);
+        DrawOnScreen.print2DArray(box);
         Assert.assertTrue(true);
     }
 
