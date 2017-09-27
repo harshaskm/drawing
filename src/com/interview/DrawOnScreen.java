@@ -57,6 +57,18 @@ public class DrawOnScreen {
         }
     }
 
+    public static char[][] drawSmallerRectangle(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
+        int xAxis = (secondXCoOrdinate - firstXCoOrdinate)-1;
+        int yAxis = (secondYCoOrdinate - firstYCoOrdinate)-1;
+        char[][] smallBox = createCanvas(xAxis, yAxis);
+
+        return smallBox;
+    }
+
+//    public static char[][] mergeSmallBoxIntoCanvas(char[][] canvas, char[][] smallBox){
+//        null;
+//    }
+
     public static void printCanvas(char[][] box){
 
         for(char[] row : box) {
