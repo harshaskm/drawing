@@ -2,7 +2,7 @@ package com.interview;
 
 public class DrawOnScreen {
 
-    public static char[][] createCanvas(int xAxis, int yAxis) {
+    public static char[][] createCanvas(int xAxis, int yAxis, char symbol) {
         int horizontalBorder = 2;
         int modifiedYAxis = yAxis + horizontalBorder;
         int verticalBorder = 2;
@@ -11,36 +11,37 @@ public class DrawOnScreen {
         int headerLine = 0;
         int footerLine = modifiedYAxis-1;
 
-        fillMatrix(modifiedYAxis, modifiedXAxis, box, headerLine, footerLine);
+        initializeMatrix(modifiedYAxis, modifiedXAxis, box, headerLine, footerLine, symbol);
 
         return box;
     }
 
 
-    private static void ifVacantInCanvas(int modifiedXAxis, char[][] box, int headerLine, int footerLine, int height, int width) {
+    private static void ifVacantInCanvas(int modifiedXAxis, char[][] box, int headerLine, int footerLine, int height, int width, char symbol) {
         if ( (height > headerLine && height < footerLine) && (width > 0 && width < modifiedXAxis-1)) {
             box[height][width] = ' ';
         }
     }
 
-    private static void ifBorderCoOrdinates(int modifiedXAxis, char[][] box, int headerLine, int footerLine, int height, int width) {
-        if (height == headerLine || height == footerLine){
-            box[height][width] = '-';
+    private static void createPerimeter(int modifiedXAxis, char[][] box, int headerLine, int footerLine, int height, int width, char symbol) {
+        if (height == headerLine || height == footerLine) {
+            if (symbol != 'x') symbol = '-';
+            box[height][width] = symbol;
         }
 
         if ((height > headerLine && height < footerLine) && (width == 0 || width == modifiedXAxis-1 )) {
-            box[height][width] = '|';
+            if (symbol != 'x') symbol = '|';
+            box[height][width] = symbol;
 
         }
     }
 
-    private static void fillMatrix(int modifiedYAxis, int modifiedXAxis, char[][] box, int headerLine, int footerLine) {
+    private static void initializeMatrix(int modifiedYAxis, int modifiedXAxis, char[][] box, int headerLine, int footerLine, char symbol) {
         for (int height = 0; height < modifiedYAxis; height++) {
             for (int width = 0; width < modifiedXAxis; width++) {
-                box[height][width] = ' ';
 
-                ifBorderCoOrdinates(modifiedXAxis, box, headerLine, footerLine, height, width);
-                ifVacantInCanvas(modifiedXAxis, box, headerLine, footerLine, height, width);
+                createPerimeter(modifiedXAxis, box, headerLine, footerLine, height, width, symbol);
+                ifVacantInCanvas(modifiedXAxis, box, headerLine, footerLine, height, width, symbol);
             }
         }
     }
@@ -57,17 +58,13 @@ public class DrawOnScreen {
         }
     }
 
-    public static char[][] drawSmallerRectangle(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
+    public static char[][] createSmallerRectangle(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
         int xAxis = (secondXCoOrdinate - firstXCoOrdinate)-1;
         int yAxis = (secondYCoOrdinate - firstYCoOrdinate)-1;
-        char[][] smallBox = createCanvas(xAxis, yAxis);
+        char[][] smallBox = createCanvas(xAxis, yAxis, 'x');
 
         return smallBox;
     }
-
-//    public static char[][] mergeSmallBoxIntoCanvas(char[][] canvas, char[][] smallBox){
-//        null;
-//    }
 
     public static void printCanvas(char[][] box){
 
