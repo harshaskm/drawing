@@ -46,24 +46,44 @@ public class DrawOnScreen {
         }
     }
 
-    public static void drawHorizontalLineInCanvas(char[][] box, int xCoOrdinate, int yCoOrdinate, int lineLength){
+    private static void drawHorizontalLineInCanvas(char[][] box, int xCoOrdinate, int yCoOrdinate, int lineLength, char symbol){
+        if (symbol != 'x') symbol = '|';
         for (int xAxis=0; xAxis <= lineLength-1; xAxis++) {
-            box[yCoOrdinate][xCoOrdinate + xAxis] = 'x';
+            box[yCoOrdinate][xCoOrdinate + xAxis] = symbol;
         }
     }
 
-    public static void drawVerticalLineInCanvas(char[][] box, int xCoOrdinate, int yCoOrdinate, int lineLength){
+    private static void drawVerticalLineInCanvas(char[][] box, int xCoOrdinate, int yCoOrdinate, int lineLength, char symbol){
+        if (symbol != 'x') symbol = '|';
         for (int yAxis=0; yAxis <= lineLength-1; yAxis++) {
-            box[yCoOrdinate + yAxis][xCoOrdinate] = 'x';
+            box[yCoOrdinate + yAxis][xCoOrdinate] = symbol;
         }
     }
 
-    public static char[][] createSmallerRectangle(int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate){
-        int xAxis = (secondXCoOrdinate - firstXCoOrdinate)-1;
-        int yAxis = (secondYCoOrdinate - firstYCoOrdinate)-1;
-        char[][] smallBox = createCanvas(xAxis, yAxis, 'x');
+    public static char[][] drawLinesInCanvas(char[][] canvas, int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate, char symbol){
+        int lineLength = (secondXCoOrdinate - firstXCoOrdinate)+1;
+        int verticalLength = (secondYCoOrdinate - firstYCoOrdinate);
+        if (firstYCoOrdinate == secondYCoOrdinate){
+            drawHorizontalLineInCanvas(canvas, firstXCoOrdinate, firstYCoOrdinate, lineLength, symbol);
+            drawVerticalLineInCanvas(canvas, firstXCoOrdinate, firstYCoOrdinate, verticalLength, symbol);
+        }else{
+            drawHorizontalLineInCanvas(canvas, firstXCoOrdinate, firstYCoOrdinate, lineLength, symbol);
+            drawVerticalLineInCanvas(canvas, secondXCoOrdinate, secondYCoOrdinate, verticalLength, symbol);
 
-        return smallBox;
+        }
+        return canvas;
+    }
+
+    public static char[][] mergeSmallBoxIntoCanvas(char[][] box, int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate, char symbol){
+        char [][] canvas = box;
+        int lineLength = (secondXCoOrdinate - firstXCoOrdinate)+1;
+        int verticalLength = (secondYCoOrdinate - firstYCoOrdinate);
+        drawHorizontalLineInCanvas(canvas, firstXCoOrdinate, firstYCoOrdinate, lineLength, symbol);
+        drawHorizontalLineInCanvas(canvas, firstXCoOrdinate, secondYCoOrdinate, lineLength, symbol);
+        drawVerticalLineInCanvas(canvas, firstXCoOrdinate, firstYCoOrdinate, verticalLength, symbol);
+        drawVerticalLineInCanvas(canvas, secondXCoOrdinate, firstYCoOrdinate, verticalLength, symbol);
+
+        return canvas;
     }
 
     public static void printCanvas(char[][] box){
