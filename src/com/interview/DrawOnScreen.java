@@ -46,8 +46,14 @@ public class DrawOnScreen {
     }
 
     public static void drawHorizontalLineInCanvas(char[][] box, int xCoOrdinate, int yCoOrdinate, int lineLength){
-        for (int xAxis = xCoOrdinate; xAxis <= lineLength; xAxis++) {
-            box[yCoOrdinate][xAxis] = 'x';
+        for (int xAxis=0; xAxis <= lineLength-1; xAxis++) {
+            box[yCoOrdinate][xCoOrdinate + xAxis] = 'x';
+        }
+    }
+
+    public static void drawVerticalLineInCanvas(char[][] box, int xCoOrdinate, int yCoOrdinate, int lineLength){
+        for (int yAxis=0; yAxis <= lineLength-1; yAxis++) {
+            box[yCoOrdinate + yAxis][xCoOrdinate] = 'x';
         }
     }
 
