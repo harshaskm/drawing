@@ -17,7 +17,7 @@ public class DrawOnScreen {
     }
 
 
-    private static void ifVacantInCanvas(int modifiedXAxis, char[][] box, int headerLine, int footerLine, int height, int width, char symbol) {
+    private static void fillEntireCanvas(int modifiedXAxis, char[][] box, int headerLine, int footerLine, int height, int width, char symbol) {
         if ( (height > headerLine && height < footerLine) && (width > 0 && width < modifiedXAxis-1)) {
             box[height][width] = ' ';
         }
@@ -41,7 +41,7 @@ public class DrawOnScreen {
             for (int width = 0; width < modifiedXAxis; width++) {
 
                 createPerimeter(modifiedXAxis, box, headerLine, footerLine, height, width, symbol);
-                ifVacantInCanvas(modifiedXAxis, box, headerLine, footerLine, height, width, symbol);
+                fillEntireCanvas(modifiedXAxis, box, headerLine, footerLine, height, width, symbol);
             }
         }
     }
@@ -74,7 +74,21 @@ public class DrawOnScreen {
         return canvas;
     }
 
-    public static char[][] mergeSmallBoxIntoCanvas(char[][] box, int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate, char symbol){
+    public static char[][] bucketFill(char[][] canvas, int xCoOrdinate, int yCoOrdinate, char symbol){
+        int xAxis = xCoOrdinate;
+        int yAxis = yCoOrdinate;
+
+        int remainingYaxisDownwards = (canvas.length - 2) - yCoOrdinate;
+        for (; remainingYaxisDownwards <= (canvas.length - 2); remainingYaxisDownwards++) {
+            if (canvas[remainingYaxisDownwards][xCoOrdinate] != 'x')
+                if (canvas[remainingYaxisDownwards][xCoOrdinate] != '-')
+                    canvas[remainingYaxisDownwards][xCoOrdinate] = symbol;
+        }
+
+        return canvas;
+    }
+
+    public static char[][] createSmallBoxInTheCanvas(char[][] box, int firstXCoOrdinate, int firstYCoOrdinate, int secondXCoOrdinate, int secondYCoOrdinate, char symbol){
         char [][] canvas = box;
         int lineLength = (secondXCoOrdinate - firstXCoOrdinate)+1;
         int verticalLength = (secondYCoOrdinate - firstYCoOrdinate);
