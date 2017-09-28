@@ -16,7 +16,6 @@ public class DrawOnScreen {
         return box;
     }
 
-
     private static void fillEntireCanvas(int modifiedXAxis, char[][] box, int headerLine, int footerLine, int height, int width, char symbol) {
         if ( (height > headerLine && height < footerLine) && (width > 0 && width < modifiedXAxis-1)) {
             box[height][width] = ' ';
@@ -75,14 +74,11 @@ public class DrawOnScreen {
     }
 
     public static char[][] bucketFill(char[][] canvas, int xCoOrdinate, int yCoOrdinate, char symbol){
-        int xAxis = xCoOrdinate;
-        int yAxis = yCoOrdinate;
-
-        int remainingYaxisDownwards = (canvas.length - 2) - yCoOrdinate;
-        for (; remainingYaxisDownwards <= (canvas.length - 2); remainingYaxisDownwards++) {
-            if (canvas[remainingYaxisDownwards][xCoOrdinate] != 'x')
-                if (canvas[remainingYaxisDownwards][xCoOrdinate] != '-')
-                    canvas[remainingYaxisDownwards][xCoOrdinate] = symbol;
+        int remainingYAxisDownwards = (canvas.length - 2) - yCoOrdinate;
+        for (; remainingYAxisDownwards <= (canvas.length - 2); remainingYAxisDownwards++) {
+            if (canvas[remainingYAxisDownwards][xCoOrdinate] != 'x')
+                if (canvas[remainingYAxisDownwards][xCoOrdinate] != '-')
+                    canvas[remainingYAxisDownwards][xCoOrdinate] = symbol;
         }
 
         return canvas;
